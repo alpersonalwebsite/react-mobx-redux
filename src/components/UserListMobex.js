@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
 class UserListMobex extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.UserStore.fetchUsers()
     this.props.OtherUserStore.fetchUsers()
     this.props.SingleMobexStore.fetchUsers()
   }
 
-  render() {
-
+  render () {
     // This can be consolidated in a fn receiving params and returning 1|2|3 but I want to explicit for the sake of clarity
     let users
     users = (
