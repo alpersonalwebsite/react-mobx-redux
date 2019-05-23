@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
 class UserListMobex extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.UserStore.fetchUsers()
     this.props.OtherUserStore.fetchUsers()
+    this.props.SingleMobexStore.fetchUsers()
   }
 
-  render () {
+  render() {
+
+    // This can be consolidated in a fn receiving params and returning 1|2|3 but I want to explicit for the sake of clarity
     let users
     users = (
       <React.Fragment>
-        <h2>Using multiple stores</h2>
         <ul>
           {this.props.UserStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
         </ul>
@@ -21,20 +23,31 @@ class UserListMobex extends Component {
     let otherUsers
     otherUsers = (
       <React.Fragment>
-        <h2>Using multiple stores</h2>
         <ul>
           {this.props.OtherUserStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
         </ul>
       </React.Fragment>
     )
 
+    let usersSingleStore
+    usersSingleStore = (
+      <React.Fragment>
+        <ul>
+          {this.props.SingleMobexStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
+        </ul>
+      </React.Fragment>
+    )
+
     return (
       <React.Fragment>
+        <h2>Using a root store with multiple sub stores</h2>
         {users}
         {otherUsers}
+        <h2>Independent stores</h2>
+        {usersSingleStore}
       </React.Fragment>
     )
   }
 }
 
-export default inject('UserStore', 'OtherUserStore')(observer(UserListMobex))
+export default inject('UserStore', 'OtherUserStore', 'SingleMobexStore')(observer(UserListMobex))
