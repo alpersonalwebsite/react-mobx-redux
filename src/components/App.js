@@ -5,7 +5,13 @@ import './App.css'
 function App () {
   return (
     <React.Fragment>
-      <UserListMobex />
+      <h1>MobX and Redux</h1>
+      <div className="row">
+        <div className="column">
+          <UserListMobex className="column" />
+        </div>
+        <div className="column">Other</div>
+      </div>
     </React.Fragment>
   )
 }

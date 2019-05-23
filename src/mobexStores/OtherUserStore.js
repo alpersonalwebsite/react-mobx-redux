@@ -4,14 +4,22 @@ import {
   decorate
 } from 'mobx';
 
-import { API, limitQuery, limitUserResults } from '../apiConfiguration'
+import {
+  API,
+  limitQuery,
+  limitUserResults,
+  offsetQuery
+} from '../apiConfiguration'
 
 
 class OtherUserStore {
   users = []
 
   fetchUsers = async () => {
-    const response = await fetch(API + limitQuery + limitUserResults)
+
+    const composedURL = API + '?' + limitQuery + limitUserResults + '&' + offsetQuery + 20
+
+    const response = await fetch(composedURL)
     const parsedResponse = await response.json()
 
     runInAction(() => {
