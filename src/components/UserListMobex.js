@@ -39,10 +39,10 @@ class UserListMobex extends Component {
 
     return (
       <React.Fragment>
-        <h2>Using a root store with multiple sub stores</h2>
+        <h2>MobeX: root store w/ multiple sub stores</h2>
         {users}
         {otherUsers}
-        <h2>Independent stores</h2>
+        <h2>MobeX: Independent stores</h2>
         {usersSingleStore}
       </React.Fragment>
     )

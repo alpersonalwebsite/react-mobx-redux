@@ -1,5 +1,6 @@
 import React from 'react'
 import UserListMobex from './UserListMobex'
+import UserListRedux from './UserListRedux'
 import './App.css'
 
 function App () {
@@ -10,7 +11,9 @@ function App () {
         <div className="column">
           <UserListMobex className="column" />
         </div>
-        <div className="column">Other</div>
+        <div className="column">
+          <UserListRedux />
+        </div>
       </div>
     </React.Fragment>
   )
