@@ -17,14 +17,18 @@ class UserStore {
 
   fetchUsers = async () => {
 
-    const composedURL = API + '?' + limitQuery + limitUserResults + '&' + offsetQuery + 10
+    try {
+      const composedURL = API + '?' + limitQuery + limitUserResults + '&' + offsetQuery + 10
 
-    const response = await fetch(composedURL)
-    const parsedResponse = await response.json()
+      const response = await fetch(composedURL)
+      const parsedResponse = await response.json()
 
-    runInAction(() => {
-      this.users = parsedResponse
-    })
+      runInAction(() => {
+        this.users = parsedResponse
+      })
+    } catch (err) {
+      console.log(`mobexStores/UserStore ${err}`)
+    }
 
   }
 }
