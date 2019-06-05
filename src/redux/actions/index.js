@@ -3,23 +3,25 @@ import { FETCH_USERS } from './types';
 import axios from 'axios';
 
 import {
-    API,
-    limitQuery,
-    limitUserResults
+  API,
+  limitQuery,
+  limitUserResults
 } from '../../apiConfiguration'
 
 
 const headers = {
-    Accept: 'application/json'
+  Accept: 'application/json'
 };
 
 export const fetchUsers = () => async dispatch => {
-    try {
-        const endPoint = API + '?' + limitQuery + limitUserResults;
-        const response = await axios.get(endPoint, { headers })
 
-        return dispatch({ type: FETCH_USERS, payload: response.data });
-    } catch (err) {
-        console.log(`redux AC ${err}`)
-    }
+  const endPoint = API + '?' + limitQuery + limitUserResults;
+
+  try {
+    const response = await axios.get(endPoint, { headers })
+
+    return dispatch({ type: FETCH_USERS, payload: response.data });
+  } catch (err) {
+    console.log(`redux AC ${err}`)
+  }
 }

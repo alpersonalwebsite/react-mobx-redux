@@ -16,9 +16,10 @@ class OtherUserStore {
   users = []
 
   fetchUsers = async () => {
-    try {
-      const composedURL = API + '?' + limitQuery + limitUserResults + '&' + offsetQuery + 20
 
+    const composedURL = API + '?' + limitQuery + limitUserResults + '&' + offsetQuery + 20
+
+    try {
       const response = await fetch(composedURL)
       const parsedResponse = await response.json()
 
