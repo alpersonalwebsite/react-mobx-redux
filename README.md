@@ -1,6 +1,7 @@
 # MobX and Redux
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/alpersonalwebsite/react-mobx-redux.svg)](https://greenkeeper.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 This is an easy, basic and raw (no styles attached) example of **comparing** the implementation of `MobX` and `redux`.
 
