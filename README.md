@@ -8,12 +8,12 @@ This is an easy, basic and raw (no styles attached) example of **comparing** the
 
 ## Installation
 ```
-yarn install
+npm install
 ```
 
 ## Running the dev server
 ```
-yarn start
+npm start
 ```
 
 ## Handling errors
