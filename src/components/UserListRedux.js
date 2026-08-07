@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
 import { fetchUsers } from '../redux/actions'
+import UserList from './UserList'
 
 class UserListRedux extends Component {
   componentDidMount () {
@@ -8,28 +10,22 @@ class UserListRedux extends Component {
   }
 
   render () {
-    let userList
-    userList = (
-      <React.Fragment>
-        <ul>
-          {this.props.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
-        </ul>
-      </React.Fragment>
-    )
+    const { users, loading, error, fetchUsers: retry } = this.props
 
     return (
       <React.Fragment>
         <h2>Redux: root store</h2>
-        {userList}
+        <UserList users={users} loading={loading} error={error} onRetry={retry} />
       </React.Fragment>
     )
   }
 }
 
-const mapStateToProps = ({ users }) => {
-  return {
-    users
-  }
-}
+// The reducer owns a shape now rather than a bare array, so this unpacks it.
+const mapStateToProps = ({ users }) => ({
+  users: users.items,
+  loading: users.loading,
+  error: users.error
+})
 
 export default connect(mapStateToProps, { fetchUsers })(UserListRedux)

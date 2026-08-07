@@ -15,7 +15,12 @@ import rootReducer from './redux/reducers';
 import './index.css'
 
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : null || compose;
+// Redux DevTools in development only. The old form ended in `: null || compose`, where
+// `null ||` was dead code, since the ternary had already chosen a branch.
+const composeEnhancers =
+  process.env.NODE_ENV === 'development'
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    : compose
 
 const reduxStore = createStore(
   rootReducer,
