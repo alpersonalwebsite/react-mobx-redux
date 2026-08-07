@@ -1,4 +1,4 @@
-import { FETCH_USERS, FETCH_USERS_FAILED } from '../actions/types'
+import { FETCH_USERS_REQUESTED, FETCH_USERS, FETCH_USERS_FAILED } from '../actions/types'
 
 const initialState = {
   items: [],
@@ -8,6 +8,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_USERS_REQUESTED:
+      return { ...state, loading: true, error: null }
+
     // REPLACE, not append. This was `[...state, ...action.payload]`, so a second fetch
     // showed every user twice and a third showed them three times. FETCH_USERS carries
     // the current answer to "who are the users", not an increment of it.
