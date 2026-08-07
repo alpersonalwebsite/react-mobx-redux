@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
+import UserList from './UserList'
+
 class UserListMobex extends Component {
   componentDidMount () {
     this.props.UserStore.fetchUsers()
@@ -9,44 +11,26 @@ class UserListMobex extends Component {
   }
 
   render () {
-    // This can be consolidated in a fn receiving params and returning 1|2|3 but I want to explicit for the sake of clarity
-    let users
-    users = (
-      <React.Fragment>
-        <ul>
-          {this.props.UserStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
-        </ul>
-      </React.Fragment>
-    )
+    const { UserStore, OtherUserStore, SingleMobexStore } = this.props
 
-    let otherUsers
-    otherUsers = (
-      <React.Fragment>
-        <ul>
-          {this.props.OtherUserStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
-        </ul>
-      </React.Fragment>
-    )
-
-    let usersSingleStore
-    usersSingleStore = (
-      <React.Fragment>
-        <ul>
-          {this.props.SingleMobexStore.users.map(({ name, lastname, user_id }) => <li key={user_id}>{`${name} ${lastname}`}</li>)}
-        </ul>
-      </React.Fragment>
-    )
-
+    // The three blocks were spelled out longhand with an identical JSX shape repeated
+    // three times, plus a `let x; x = (...)` pattern that never reassigns. The mapping
+    // is the same in all three, so it lives in one component now; what differs is only
+    // which store supplies it, which is what a reader is here to see.
     return (
       <React.Fragment>
-        <h2>MobeX: root store w/ multiple sub stores</h2>
-        {users}
-        {otherUsers}
-        <h2>MobeX: Independent stores</h2>
-        {usersSingleStore}
+        <h2>MobX: root store w/ multiple sub stores</h2>
+        <UserList {...UserStore} onRetry={UserStore.fetchUsers} />
+        <UserList {...OtherUserStore} onRetry={OtherUserStore.fetchUsers} />
+
+        <h2>MobX: independent store</h2>
+        <UserList {...SingleMobexStore} onRetry={SingleMobexStore.fetchUsers} />
       </React.Fragment>
     )
   }
 }
 
+// inject pulls named stores out of the Provider; observer re-renders this component
+// when any observable it READ during the last render changes. Both are needed: inject
+// without observer gives you the store once and never updates.
 export default inject('UserStore', 'OtherUserStore', 'SingleMobexStore')(observer(UserListMobex))

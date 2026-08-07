@@ -1,4 +1,6 @@
 {
+  "root": true,
+  "parser": "babel-eslint",
   "extends": [
     "plugin:react/recommended",
     "standard"
@@ -9,5 +11,19 @@
   },
   "plugins": [
     "react"
-  ]
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/prop-types": 0,
+    "camelcase": [
+      "error",
+      {
+        "properties": "never"
+      }
+    ]
+  }
 }
